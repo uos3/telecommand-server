@@ -31,7 +31,7 @@ app.use(otherRoutes);
 
 // listen for requests on port 8080
 app.listen(8080, function () {
-    console.log('Node app is running on port 8080');
+    console.log('Telecommand server is running on port 8080');
 });
 
 // app.get('/names', function (req, res) {

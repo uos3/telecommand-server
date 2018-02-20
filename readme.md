@@ -9,7 +9,7 @@ The server for sending commands to the cubesat.
 ## Install
 ```
 $ git clone git@github.com:uos3/telecommand-server.git
-$ cd telecommand-server-master
+$ cd telecommand-server
 $ npm install
 ```
 
