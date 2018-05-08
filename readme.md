@@ -1,25 +1,17 @@
 # Telecommand server
-The server for sending commands to the cubesat.
+The server for sending telecommands to UoS3
 
 ## Requirements
-* [NodeJS](https://nodejs.org/en/)
-* [NPM](https://npmjs.com/) (comes with NodeJS)
+* [django](https://www.djangoproject.com/)
+* [Python](https://www.python.org/)
 * [git](https://git-scm.com/) (just to download & update repository easily)
 
 ## Install
 ```
-$ git clone git@github.com:uos3/telecommand-server.git
-$ cd telecommand-server
-$ npm install
+TODO
 ```
 
 ## Run
-### Development mode
 ```
-$ npm run dev
-```
-
-### Production mode
-```
-$ npm start
+TODO
 ```
