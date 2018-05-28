@@ -6,5 +6,11 @@
 	</head>
 	<body>
 		<h1>Hello world.</h1>
+
+	<form action="/command/send" method="post">
+		{% csrf_token %}
+		<table> {{ form }} </table>
+		<input type="submit" value="send command"/>
+    </form>
 	</body>
 </html>
