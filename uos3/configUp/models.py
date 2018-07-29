@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 # Create your models here.
 
@@ -86,3 +87,11 @@ class config(models.Model):
     imu_gyro_enabled = models.BooleanField(choices=choices_bool, default=False)
     imu_magno_enabled = models.BooleanField(choices=choices_bool, default=False)
     downlink_stop_time = models.BigIntegerField()
+
+
+class configForm(ModelForm):
+    class Meta:
+        model = config
+        exclude = [
+            'date_submitted',
+        ]
