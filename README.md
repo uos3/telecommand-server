@@ -1,5 +1,5 @@
 # Telecommand server
-The server for sending telecommands to UoS3 CubeSat
+The server for sending telecommands to UoS³ CubeSat
 
 ## Requirements
 + [Django](https://www.djangoproject.com/), version 2.0+
@@ -15,6 +15,16 @@ Download the official Django package for Ubuntu.
 Install the Django package on the machine.
 
 ## Run
+Go to the 'uos3' folder.
+
 Run the following command:
 
-`django-admin runserver <IP>:<PORT>`
+`python3 manage.py runserver <IP>:<PORT>`
+
+where <IP> is the desired IP address and <PORT> is the port number.
+
+# Authors
+
+Mohammed Nawabuddin
+
+Charles West-Taylor

@@ -47,6 +47,8 @@ class config(models.Model):
 
     date_submitted = models.DateTimeField(auto_now_add=True)
     user_submitted = models.CharField(max_length=64)
+    confirm_uplink = models.BooleanField(default=False)
+    date_uplink = models.DateTimeField()
 
     tx_enable = models.BooleanField(default=True)
     tx_interval = models.PositiveSmallIntegerField()
@@ -87,11 +89,3 @@ class config(models.Model):
     imu_gyro_enabled = models.BooleanField(choices=choices_bool, default=False)
     imu_magno_enabled = models.BooleanField(choices=choices_bool, default=False)
     downlink_stop_time = models.BigIntegerField()
-
-
-class configForm(ModelForm):
-    class Meta:
-        model = config
-        exclude = [
-            'date_submitted',
-        ]
