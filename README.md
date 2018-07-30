@@ -21,7 +21,7 @@ Run the following command:
 
 `python3 manage.py runserver <IP>:<PORT>`
 
-where <IP> is the desired IP address and <PORT> is the port number.
+where 'IP' is the desired IP address and 'PORT' is the port number.
 
 # Authors
 
