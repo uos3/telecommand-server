@@ -8,6 +8,6 @@ class configForm(forms.ModelForm):
         exclude = [
             'date_submitted',
             'user_submitted',
-            'confirm_uplink',
+            'confirmed_uplink',
             'date_uplink',
         ]

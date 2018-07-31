@@ -1,8 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import render
 from django.views import generic
-from .models import config
 from .forms import configForm
 # Create your views here.
 
@@ -11,26 +9,31 @@ class IndexView(generic.TemplateView):
     template_name = 'configUp/index.html'
 
 
-class ThanksView(generic.TemplateView, type=0):
-    if type == 0:
+class ThanksView(generic.TemplateView):
+    type = 'Config_Saved'
+    if type == 'Config_Saved':
         template_name = 'configUp/configThanks.html'
-    else if type == 1:
+    else:
         template_name = 'configUp/delThanks.html'
 
 
-class ConfigView(generic.edit.FormView):
-    form_class = configForm
+class ConfigView(generic.TemplateView):
     template_name = 'configUp/config.html'
-    success_url = '/configThanks/'
 
-    def get_config(request):
-        if request.method == 'POST':
-            form = configForm(request.POST)
-            if form.is_valid():
-                return HttpResponseRedirect('/configThanks')
-        else:
-            form = configForm()
-        return render(request, 'config.html', {'form': form})
+    def get(self, request, *args, **kwargs):
+        form = configForm(initial={
+            'power_rail_1': 1,
+            'power_rail_3': 1,
+            'power_rail_5': 1,
+            'power_rail_6': 1,
+        })
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = configForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('configThanks.html')
 
 
 class ListConfigsView(generic.ListView):
