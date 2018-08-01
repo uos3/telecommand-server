@@ -1,6 +1,7 @@
-from django.http import HttpResponseRedirect
+﻿from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
+from .models import config
 from .forms import configForm
 # Create your views here.
 
@@ -10,15 +11,11 @@ class IndexView(generic.TemplateView):
 
 
 class ThanksView(generic.TemplateView):
-    type = 'Config_Saved'
-    if type == 'Config_Saved':
-        template_name = 'configUp/configThanks.html'
-    else:
-        template_name = 'configUp/delThanks.html'
+    template_name = 'configUp/configThanks.html'
 
 
-class ConfigView(generic.TemplateView):
-    template_name = 'configUp/config.html'
+class ConfigUpView(generic.TemplateView):
+    template_name = 'configUp/configUp.html'
 
     def get(self, request, *args, **kwargs):
         form = configForm(initial={
@@ -37,8 +34,10 @@ class ConfigView(generic.TemplateView):
 
 
 class ListConfigsView(generic.ListView):
+    model = config
     template_name = 'configUp/listConfigs.html'
 
 
-class DelView(generic.DetailView):
-    template_name = 'configUp/del.html'
+class DetView(generic.DetailView):
+    model = config
+    template_name = 'configUp/detail.html'

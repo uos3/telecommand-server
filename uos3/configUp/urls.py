@@ -6,9 +6,9 @@ app_name = 'configUp'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('config.html', views.ConfigView.as_view(), name='config'),
-    path('configThanks.html', views.ThanksView.as_view(type='Config_Saved'), name='configThanks'),
+    path('configUp.html', views.ConfigUpView.as_view(), name='configUpd'),
+    path('configThanks.html', views.ThanksView.as_view(template_name="configUp/configThanks.html"), name='configThanks'),
     path('listConfigs.html', views.ListConfigsView.as_view(), name='listConfigs'),
-    path('configDel.html', views.DelView.as_view(), name='del'),
-    path('delThanks.html', views.ThanksView.as_view(type='Del_Confirmed'), name='delThanks'),
+    path('configDet.html/<int:pk>', views.DetView.as_view(), name='detail'),
+    path('delThanks.html', views.ThanksView.as_view(template_name="configUp/delThanks.html"), name='delThanks'),
 ]
