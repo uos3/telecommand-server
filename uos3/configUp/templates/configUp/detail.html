@@ -12,7 +12,7 @@
 			<input type="submit" value="Save Changes"/>
 		</form>
 		<button onclick="delFunc()">Delete This Configuration</button>
-    <form action="/listConfigs.html" method="get">
+    <form action="/listConfigs" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>
 	</body>
@@ -22,7 +22,7 @@
 								"Do you confirm that you wish to delete this "
 								"Configuration Update file?")) {
 			{% config.objects.filter(id=pk).delete() %}
-			window.location.href = '/delThanks.html';
+			window.location.href = '/delThanks';
 	  }
 	}
 	</script>
