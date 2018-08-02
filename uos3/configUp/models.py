@@ -48,6 +48,7 @@ class config(models.Model):
     )
 
     date_submitted = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
     user_submitted = models.CharField(max_length=64, default='uos3')
     confirmed_uplink = models.BooleanField(default=False)
     date_uplink = models.DateTimeField(default=datetime.datetime(1970, 1, 1))

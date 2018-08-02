@@ -5,14 +5,25 @@
 		<title>UoS³ Telecommand Configuration Detail</title>
 	</head>
 	<body>
-		<h1>Details of selected file</h1>
-    <table>
-      {% for detail in object %}
-        <tr> {{detail}}</tr>
-      {% endfor %}
-    </table>
+		<h1>Details of Selected Configuration</h1>
+		<form method="post">
+			{% csrf_token %}
+			<table> {{ form }} </table>
+			<input type="submit" value="Save Changes"/>
+		</form>
+		<button onclick="delFunc()">Delete This Configuration</button>
     <form action="/listConfigs.html" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>
 	</body>
+	<script type="text/javascript">
+	function delFunc() {
+	  if (confirm(
+								"Do you confirm that you wish to delete this "
+								"Configuration Update file?")) {
+			{% config.objects.filter(id=pk).delete() %}
+			window.location.href = '/delThanks.html';
+	  }
+	}
+	</script>
 </html>
