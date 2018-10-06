@@ -7,3 +7,4 @@
 
 Known Issues:
 1. Details of unsent configurations will not save
+2. Button with delFunc() in detail.html unable to call function, perhaps because configuration is empty
