@@ -1,0 +1,9 @@
+6th Ocotober 2018 - Hubert:
+1. Added additional migration for date_modified field
+2. Fixed variable errors and formatting for html templates and views.py
+3. Fixed url calls between configUp.html and configThanks.html, listConfigs.html and detail.html
+4. Fixed javascript code format on detail.html
+5. Added this changelog file for better information
+
+Known Issues:
+1. Details of unsent configurations will not save
