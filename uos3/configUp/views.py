@@ -18,7 +18,7 @@ class ConfigUpView(generic.TemplateView):
     template_name = 'configUp/configUp.html'
 
     def get(self, request, *args, **kwargs):
-        if template_name = 'configUp/configUp.html':
+        if self.template_name = 'configUp/configUp.html':
             form = configCreateForm(initial={
                 'power_rail_1': 1,
                 'power_rail_3': 1,
@@ -31,7 +31,7 @@ class ConfigUpView(generic.TemplateView):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
-        if template_name = 'configUp/configUp.html':
+        if self.template_name = 'configUp/configUp.html':
             form = configCreateForm(request.POST)
         else:
             form = configModForm(request.POST)

@@ -6,7 +6,7 @@ app_name = 'configUp'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('configUp', views.ConfigUpView.as_view(), name='configUpd'),
+    path('configUp', views.ConfigUpView.as_view(template_name = "configUp/configUp.html"), name='configUpd'),
     path('configThanks', views.ThanksView.as_view(
         template_name="configUp/configThanks.html"), name='configThanks'),
     path('listConfigs', views.ListConfigsView.as_view(), name='listConfigs'),
