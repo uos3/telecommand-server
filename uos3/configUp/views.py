@@ -45,6 +45,6 @@ class ListConfigsView(generic.ListView):
     template_name = 'configUp/listConfigs.html'
 
 
-class DetView(generic.DetailView):
-     model = config
-     template_name = 'configUp/detail.html'
+# class DetView(generic.DetailView):
+#     model = config
+#     template_name = 'configUp/detail.html'

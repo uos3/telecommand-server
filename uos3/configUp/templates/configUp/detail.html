@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -17,11 +18,12 @@
 		</form>
 	</body>
 	<script type="text/javascript">
-	function delFunc() {
+	var delFunc = function() {
 	  if (confirm(
 								"Do you confirm that you wish to delete this "
-								"Configuration Update file?")) {
-			{% config.objects.filter(id=pk).delete() %}
+								"Configuration Update file?"))
+								{
+			config.objects.filter(id=pk).delete();
 			window.location.href = '/delThanks';
 	  }
 	}
