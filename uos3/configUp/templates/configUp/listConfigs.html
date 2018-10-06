@@ -13,7 +13,7 @@
         {% if config.confirmed_uplink == False %}
             <tr><td><label for="date_submitted">{{ config.date_submitted }}</label></td>
             <td><label for="user_submitted">{{ config.user_submitted }}</label></td>
-            <td class="click"><a href="configDet.html/{{ config.pk }}">Select</a></td>
+            <td class="click"><a href="configDet/{{ config.pk }}">Select</a></td>
             </tr>
         {% endif %}
       {% endfor %}

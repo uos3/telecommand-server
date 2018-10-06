@@ -37,7 +37,7 @@ class ConfigUpView(generic.TemplateView):
             form = configModForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('configThanks.html')
+            return HttpResponseRedirect('configThanks')
 
 
 class ListConfigsView(generic.ListView):
@@ -45,6 +45,6 @@ class ListConfigsView(generic.ListView):
     template_name = 'configUp/listConfigs.html'
 
 
-# class DetView(generic.DetailView):
-#     model = config
-#     template_name = 'configUp/detail.html'
+class DetView(generic.DetailView):
+     model = config
+     template_name = 'configUp/detail.html'
