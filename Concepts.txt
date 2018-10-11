@@ -1,0 +1,15 @@
+The idea I had was to open up one out of the list, and if u want to delete it then there should be a button to delete, after which u get redirected to the list view
+Basically, this list of telecommands are 'queued' up for uploading during the next CubeSat pass over soton. If they are successfully sent then one of the values inside the rows changes to confirm that
+
+U cannot delete telecommand entries from the list once they are successfully sent, only unsent ones are deletable (but I couldn't add that feature either)
+
+maybe add boolean field to model config and if statement on delete
+
+to-do list.
+1. learn django
+MOST IMPORTANT 1.5 make an output to binary(binary/txt)
+2. fix listConfigs null value hanging
+3. fix detail html
+4. figure out migrations
+5. make it look nice(CSS)
+6. fix the secrets.py and secret_key
