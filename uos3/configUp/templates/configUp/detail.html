@@ -12,20 +12,14 @@
 			<table> {{ form }} </table>
 			<input type="submit" value="Save Changes"/>
 		</form>
-		<button onclick="delFunc()">Delete This Configuration</button>
+		<form method="delete">
+			<input type="submit" value="Delete This Configuration"/>
+		</form>
     <form action="/listConfigs" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>
 	</body>
 	<script type="text/javascript">
-	var delFunc = function() {
-	  if (confirm(
-								"Do you confirm that you wish to delete this "
-								"Configuration Update file?"))
-								{
-			config.objects.filter(id=pk).delete();
-			window.location.href = '/delThanks';
-	  }
-	}
+	
 	</script>
 </html>

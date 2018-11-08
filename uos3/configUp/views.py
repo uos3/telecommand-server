@@ -44,7 +44,23 @@ class ListConfigsView(generic.ListView):
     model = config
     template_name = 'configUp/listConfigs.html'
 
+class DetView(generic.TemplateView):
+     model = config
+     template_name = 'configUp/detail.html'
 
-# class DetView(generic.DetailView):
-#     model = config
-#     template_name = 'configUp/detail.html'
+     def get(self, request, *args, **kwargs):
+         id = request.path.rsplit("/")[-1]
+         configObject = config.objects.filter(id=self.kwargs["pk"])
+         valuesDict = configObject.values()[0]
+         if self.template_name == 'configUp/detail.html':
+             form = configCreateForm(initial=valuesDict)
+         else:
+             form = configModForm(initial={
+             })
+         return render(request, self.template_name, {'form': form})
+
+     def post(self, request, *args, **kwargs):
+        form = configCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('configThanks')
