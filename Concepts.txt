@@ -6,10 +6,9 @@ U cannot delete telecommand entries from the list once they are successfully sen
 maybe add boolean field to model config and if statement on delete
 
 to-do list.
-1. learn django
-MOST IMPORTANT 1.5 make an output to binary(binary/txt)
-2. fix listConfigs null value hanging
-3. fix detail html
+1. make an output to binary(binary/txt)
+2. fix listConfigs null value hanging                         Done
+3. fix detail html                                            Done
 4. figure out migrations
-5. make it look nice(CSS)
+5. make it look nice(CSS)                                     Done
 6. fix the secrets.py and secret_key

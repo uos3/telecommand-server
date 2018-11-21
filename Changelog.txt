@@ -5,8 +5,13 @@
 4. Fixed javascript code format on detail.html
 5. Added this changelog file for better information
 
+9th November 2018 - Tom:
+1. Fixed details page so form reads in data corresponding to config selected
+
+21st November 2018 - Tom:
+1. Fixed save update button on details page to stop creating new record
+2. Fixed delete button on details page, now deletes corresponding record
+3. Added bootstrap CSS and a main.css file to improve aesthetic
+
 Known Issues:
-1. Details of unsent configurations will not save
-    --Detail.html is incomplete yet, have to format to call table or list to
-    autofill form, urls.py is incomplete line 13.
-2. Button with delFunc() in detail.html unable to call function, perhaps because configuration is empty
+Currently no known issues with the code implemented

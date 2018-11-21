@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
+{% extends "configUp/base.html" %}
+{% block title %}
 		<title>UoS³ Telecommand Server</title>
-	</head>
-	<body>
+{% endblock title %}
+{% block content %}
 		<h1>You are looking at the Telecommand Server of the UoS³ Project</h1>
 		<form action="/configUp" method="get">
     <input type="submit" value="Create New Configuration"/>
@@ -12,5 +10,4 @@
 		<form action="/listConfigs" method="get">
     <input type="submit" value="View All Unsent Configurations"/>
 		</form>
-	</body>
-</html>
+{% endblock content %}

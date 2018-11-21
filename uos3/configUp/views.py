@@ -33,11 +33,9 @@ class ConfigUpView(generic.TemplateView):
     def post(self, request, *args, **kwargs):
         if self.template_name == 'configUp/configUp.html':
             form = configCreateForm(request.POST)
-        else:
-            form = configModForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('configThanks')
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('configThanks')
 
 
 class ListConfigsView(generic.ListView):
@@ -47,20 +45,29 @@ class ListConfigsView(generic.ListView):
 class DetView(generic.TemplateView):
      model = config
      template_name = 'configUp/detail.html'
+     configLoaded = False
 
      def get(self, request, *args, **kwargs):
-         id = request.path.rsplit("/")[-1]
-         configObject = config.objects.filter(id=self.kwargs["pk"])
-         valuesDict = configObject.values()[0]
-         if self.template_name == 'configUp/detail.html':
-             form = configCreateForm(initial=valuesDict)
-         else:
-             form = configModForm(initial={
-             })
-         return render(request, self.template_name, {'form': form})
+         if not self.configLoaded:
+             configObject = config.objects.filter(id=self.kwargs["pk"])
+             valuesDict = configObject.values()[0]
+             form = configModForm(initial=valuesDict)
+             self.configLoaded = True
+             return render(request, self.template_name, {'form': form})
 
      def post(self, request, *args, **kwargs):
-        form = configCreateForm(request.POST)
+        form = configModForm(request.POST)
         if form.is_valid():
             form.save()
+            newConfigObject = config.objects.latest('date_submitted')
+            configObject = config.objects.filter(id=self.kwargs["pk"])
+            originalDate = configObject[0].date_submitted
+
+            config.objects.filter(id=self.kwargs["pk"]).delete()
+            config.objects.filter(id=newConfigObject.id).update(date_submitted=originalDate)
+            config.objects.filter(id=newConfigObject.id).update(id=self.kwargs["pk"])
             return HttpResponseRedirect('configThanks')
+
+        else:
+            config.objects.filter(id=self.kwargs["pk"]).delete()
+            return HttpResponseRedirect('delThanks')

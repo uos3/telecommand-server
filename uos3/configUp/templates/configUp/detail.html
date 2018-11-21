@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-{% load static %}
-<html>
-	<head>
-		<meta charset="utf-8">
+{% extends "configUp/base.html" %}
+{% block title %}
 		<title>UoS³ Telecommand Configuration Detail</title>
-	</head>
-	<body>
+{% endblock title %}
+{% block content %}
+		<script type="text/javascript">
+		function delFunction(){
+			{% with form=False %}
+			{% endwith %}
+			echo {{form}};
+		}
+		</script>
 		<h1>Details of Selected Configuration</h1>
 		<form method="post">
 			{% csrf_token %}
 			<table> {{ form }} </table>
 			<input type="submit" value="Save Changes"/>
 		</form>
-		<form method="delete">
-			<input type="submit" value="Delete This Configuration"/>
+		<form method="post" onsubmit="return delFunction();">
+			{% csrf_token %}
+			<input type="submit" value="Delete this Configuration"/>
 		</form>
     <form action="/listConfigs" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>
-	</body>
-	<script type="text/javascript">
-	
-	</script>
-</html>
+{% endblock content %}
