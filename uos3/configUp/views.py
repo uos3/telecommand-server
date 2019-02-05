@@ -49,13 +49,28 @@ class DetView(generic.TemplateView):
 
      def get(self, request, *args, **kwargs):
          if not self.configLoaded:
+             configCounter = self.kwargs["pk"]
              configObject = config.objects.filter(id=self.kwargs["pk"])
              valuesDict = configObject.values()[0]
              form = configModForm(initial=valuesDict)
              self.configLoaded = True
-             return render(request, self.template_name, {'form': form})
+             return render(request, self.template_name, {'form': form, 'configCounter': configCounter})
 
-     def post(self, request, *args, **kwargs):
+
+class ModDetView(generic.TemplateView):
+    model = config
+    template_name ='configUp/modDetail.html'
+    configLoaded = False
+
+    def get(self, request, *args, **kwargs):
+        if not self.configLoaded:
+            configObject = config.objects.filter(id=self.kwargs["pk"])
+            valuesDict = configObject.values()[0]
+            form = configModForm(initial=valuesDict)
+            self.configLoaded = True
+            return render(request, self.template_name, {'form': form, 'configCounter': configCounter})
+
+    def post(self, request, *args, **kwargs):
         form = configModForm(request.POST)
         if form.is_valid():
             form.save()
@@ -66,8 +81,20 @@ class DetView(generic.TemplateView):
             config.objects.filter(id=self.kwargs["pk"]).delete()
             config.objects.filter(id=newConfigObject.id).update(date_submitted=originalDate)
             config.objects.filter(id=newConfigObject.id).update(id=self.kwargs["pk"])
-            return HttpResponseRedirect('configThanks')
+            return HttpResponseRedirect('/configThanks')
 
         else:
             config.objects.filter(id=self.kwargs["pk"]).delete()
             return HttpResponseRedirect('delThanks')
+class SendDataView(generic.TemplateView):
+    model = config
+    template_name = 'configUp/sendData.html'
+    configLoaded = False
+
+    def get(self, request, *args, **kwargs):
+        if not self.configLoaded:
+            configObject = config.objects.filter(id=self.kwargs["pk"])
+            valuesDict = configObject.values()[0]
+            form = configModForm(initial=valuesDict)
+            self.configLoaded = True
+            return render(request, self.template_name, {'form': form, 'configCounter': configCounter})

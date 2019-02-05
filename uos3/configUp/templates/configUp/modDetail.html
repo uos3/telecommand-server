@@ -11,21 +11,19 @@
 		}
 		</script>
 		<h1>Details of Selected Configuration</h1>
-		<form>
+		<form method="post">
 			{% csrf_token %}
-				<fieldset disabled="disabled">
+				<fieldset>
 					<table>
 			 {{ form }}
 			 </table>
 		 </fieldset>
+			<input type="submit" value="Save Changes"/>
 		</form>
 		<form method="post" onsubmit="return delFunction();">
 			{% csrf_token %}
 			<input type="submit" value="Delete this Configuration"/>
 		</form>
-		<a class="btn btn-danger" href ='/configModDet/{{configCounter}}'>
-			Modify
-		</a>
     <form action="/listConfigs" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>

@@ -1,0 +1,29 @@
+{% extends "configUp/base.html" %}
+{% block title %}
+		<title>Summary Page for Configuration Detail</title>
+{% endblock title %}
+{% block content %}
+		<h1>Confirmation for Sending Commands</h1>
+		<script>
+		function Confirmation() {
+  		var ask = window.confirm("Are you sure you want to send the Configuration?");
+  		if (ask){
+				window.alert("This configuration was successfully sent")
+
+				window.location.href ="/configThanks"
+			}
+		}
+		</script>
+		<form>
+			{% csrf_token %}
+				<fieldset disabled="disabled">
+					<table>
+			 {{ form }}
+			 </table>
+		 </fieldset>
+		</form>
+		<a class="btn btn-info" onclick="Confirmation()">Send Data</a>
+    <form action="/listConfigs" method="get">
+    <input type="submit" value="Go back to list"/>
+		</form>
+{% endblock content %}
