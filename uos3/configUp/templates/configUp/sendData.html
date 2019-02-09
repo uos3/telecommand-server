@@ -5,24 +5,23 @@
 {% block content %}
 		<h1>Confirmation for Sending Commands</h1>
 		<script>
-		function Confirmation() {
+		function Confirmation(form) {
   		var ask = window.confirm("Are you sure you want to send the Configuration?");
   		if (ask){
-				window.alert("This configuration was successfully sent")
-
-				window.location.href ="/configThanks"
+				window.alert("This configuration was successfully sent");
+				form.submit();
 			}
 		}
 		</script>
-		<form>
+		<form method ="post">
 			{% csrf_token %}
-				<fieldset disabled="disabled">
+				<fieldset>
 					<table>
 			 {{ form }}
 			 </table>
 		 </fieldset>
+		 <input type="submit" value="Send Data" onclick="Confirmation(this.form)"/>
 		</form>
-		<a class="btn btn-info" onclick="Confirmation()">Send Data</a>
     <form action="/listConfigs" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>

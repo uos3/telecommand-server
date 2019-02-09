@@ -12,7 +12,7 @@ urlpatterns = [
     path('listConfigs', views.ListConfigsView.as_view(), name='listConfigs'),
     path('configDet/<int:pk>', views.DetView.as_view(
         template_name="configUp/detail.html"), name='detail'),
-    path('configDet/delThanks', views.ThanksView.as_view(
+    path('delThanks', views.ThanksView.as_view(
         template_name="configUp/delThanks.html"), name='delThanks'),
     path('configDet/configThanks', views.ThanksView.as_view(
         template_name="configUp/configThanks.html"), name='configThanks'),
