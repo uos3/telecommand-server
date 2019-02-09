@@ -15,7 +15,7 @@ Download the official Django package for Ubuntu.
 Install the Django package on the machine.
 
 ## Run
-Go to the 'uos3' folder.
+Go to the `uos3/uos3/` folder.
 
 Run the following command:
 
@@ -23,8 +23,23 @@ Run the following command:
 
 where 'IP' is the desired IP address and 'PORT' is the port number.
 
+## Link with Apache / NGINX server
+_TODO_
+
+## Security checks before entering production
+Once the production server is ready, make sure to do the following in the `uos3/uos3/settings.py` file:
+1. **Make sure that SECRET_KEY is hidden.**
+2. **Make sure that the DEBUG flag is disabled.**
+3. **Make sure that ALLOWED_HOSTS is set so that only authorised hosts can connect.**
+
+## Notes on Cloning
+1. The Django server production secret key needs to be stored in the `uos3/uos3/secrets.py` file. As an example, the contents of the file can be `secret_key = <KEY>` where _<KEY>_ is the secret key string.
+2. Make sure that the database file in the `uos3` folder is copied over from the relevant UoS³ project cloud storage.
+
 # Authors
 
 Mohammed Nawabuddin
 
 Charles West-Taylor
+
+Hubert Khoo Hui Boo
