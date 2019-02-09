@@ -21,7 +21,7 @@ Run the following command:
 
 `python3 manage.py runserver <IP>:<PORT>`
 
-where 'IP' is the desired IP address and 'PORT' is the port number.
+where _IP_ is the desired IP address and _PORT_ is the port number.
 
 ## Link with Apache / NGINX server
 _TODO_
@@ -33,7 +33,7 @@ Once the production server is ready, make sure to do the following in the `uos3/
 3. **Make sure that ALLOWED_HOSTS is set so that only authorised hosts can connect.**
 
 ## Notes on Cloning
-1. The Django server production secret key needs to be stored in the `uos3/uos3/secrets.py` file. As an example, the contents of the file can be `secret_key = <KEY>` where _<KEY>_ is the secret key string.
+1. The Django server production secret key needs to be stored in the `uos3/uos3/secrets.py` file. As an example, the contents of the file can be `secret_key = <KEY>` where _KEY_ is the secret key string.
 2. Make sure that the database file in the `uos3` folder is copied over from the relevant UoS³ project cloud storage.
 
 # Authors
