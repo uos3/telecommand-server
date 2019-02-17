@@ -2,16 +2,16 @@
 
 echo "Hi!\nInitiating UoS3 server config\n"
 
-SSL_DIR=$( cat "`dirname $0`/SSL_DIR" )
+SSL_DIR=$( cat "`dirname $0`/SECRETS/SSL_DIR" )
 [ -z $SSL_DIR ] && {
   echo "FATAL: You forgot to add the secret UoS3 SSL dir path! Exiting..."
   exit 1
 }
-[ ! -f "`dirname $0`/SSL_STRONG_CONF" ] && {
+[ ! -f "`dirname $0`/SECRETS/SSL_STRONG_CONF" ] && {
   SSL_STRONG_CONF=""
   echo "You have not specified strong SSL configs. Leaving at weak SSL for now."
 } || {
-  SSL_STRONG_CONF="`dirname $0`/SSL_STRONG_CONF"
+  SSL_STRONG_CONF="`dirname $0`/SECRETS/SSL_STRONG_CONF"
 }
 
 if ! which nginx > /dev/null 2>&1; then

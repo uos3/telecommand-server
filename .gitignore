@@ -1,4 +1,4 @@
 __pycache__
 db.*
 uos3/uos3/secrets.py
-server-init/SSL_DIR
+server-init/SECRETS/*
