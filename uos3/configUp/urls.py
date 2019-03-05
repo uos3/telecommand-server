@@ -20,4 +20,5 @@ urlpatterns = [
         template_name="configUp/modDetail.html"), name='modDetail'),
     path('configSend/<int:pk>', views.SendDataView.as_view(
         template_name="configUp/sendData.html"), name='sendData'),
+    path('listConfigsSent', views.ListConfigsSentView.as_view(), name='listConfigsSent'),
 ]

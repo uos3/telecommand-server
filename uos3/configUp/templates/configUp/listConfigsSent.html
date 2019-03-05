@@ -3,7 +3,7 @@
 		<title>UoS³ Telecommand Configuration List</title>
 {% endblock title %}
 {% block content %}
-		<h1>List of Unsent Configurations</h1>
+		<h1>List of Sent Configurations</h1>
     <table cellspacing="10000">
       <tr><th><label for="date_sub">Date Submitted to Server:</label></th>
       <th><label for="user_sub">Submitted by:</label></th></tr>
@@ -11,6 +11,8 @@
         {% if config.confirmed_uplink == True %}
             <tr><td><label for="date_submitted">{{ config.date_submitted }}</label></td>
             <td><label for="user_submitted">{{ config.user_submitted }}</label></td>
+						<td><label for="Confirmed uplink">{{ config.confirmed_uplink }}</label></td>
+						<td><label for="config_id">{{ config.id }}</label></td>
             <td class="click"><a href="configDet/{{config.pk}}">Select</a></td>
 						<td class="click"><a href="configModDet/{{config.pk}}">Modify</a></td>
 						<td class="click"><a href="configSend/{{config.pk}}">Send</a></td>
