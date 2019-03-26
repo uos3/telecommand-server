@@ -180,7 +180,6 @@ class SendDataView(generic.TemplateView):
         if form.is_valid():
             form.save()
 
-            logging.debug(newConfigObject.id)
             list_of_fields = get_all_fields_from_form(configModForm)
             newConfigBinary = []
 
@@ -193,8 +192,6 @@ class SendDataView(generic.TemplateView):
 
             write_to_binary(newConfigBinary)
 
-            config.objects.filter(id=newConfigObject.id).update(date_modified=datetime.datetime.now())
-            config.objects.filter(id=newConfigObject.id).update(date_submitted=originalDate)
             logging.debug("Config Object ID: {} has been updated".format(self.kwargs["pk"]))
 
 

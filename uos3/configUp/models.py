@@ -54,7 +54,7 @@ class config(models.Model):
     confirmed_uplink = models.BooleanField(default=False)
     date_uplink = models.DateTimeField(default=datetime.datetime(1970, 1, 1))
 
-    tx_enable = models.BooleanField(default=True)
+    tx_enable = models.BooleanField(choices=choices_bool,default=True)
     tx_interval = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
     tx_interval_downlink = models.IntegerField(choices=choices_tx_interval_downlink)
     tx_datarate = models.IntegerField(choices=choices_tx_datarate)
