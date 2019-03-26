@@ -194,6 +194,8 @@ class SendDataView(generic.TemplateView):
 
             write_to_binary(newConfigBinary)
 
+            config.objects.filter(id=self.kwargs["pk"]).update(confirmed_uplink = True)
+            
             logging.debug("Config Object ID: {} has been updated".format(self.kwargs["pk"]))
 
 
