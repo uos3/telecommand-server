@@ -7,24 +7,28 @@
 		<script>
 		function Confirmation(form) {
   		var ask = window.confirm("Are you sure you want to send the Configuration?");
-  		if (ask){
-				window.alert("This configuration was successfully sent");
-				form.submit();
-			}else{
-				window.location.href = "/listConfigs";
+            if (ask)
+            {
+                window.alert("Attempting to send data...");
+                return true;
+            }
+            else
+            {
+                location.href = "/listConfigs";
+                window.alert("Returning to config list...");
 				return false;
 			}
 		}
 		</script>
-		<form method ="post">
-			{% csrf_token %}
-				<fieldset>
-					<table>
-			 {{ form }}
-			 </table>
-		 </fieldset>
-		 <input type="submit" value="Send Data" onclick="Confirmation(this.form)"/>
-		</form>
+        <form method="post">
+            {% csrf_token %}
+            <fieldset>
+                <table>
+                    {{ form }}
+                </table>
+            </fieldset>
+            <input type="submit" value="Send Data" onclick="return Confirmation(this.form);" />
+        </form>
     <form action="/listConfigs" method="get">
     <input type="submit" value="Go back to list"/>
 		</form>
