@@ -11,6 +11,8 @@
         {% if config.confirmed_uplink == False %}
             <tr><td><label for="date_submitted">{{ config.date_submitted }}</label></td>
             <td><label for="user_submitted">{{ config.user_submitted }}</label></td>
+						<td><label for="Confirmed uplink">{{ config.confirmed_uplink }}</label></td>
+						<td><label for="config_id">{{ config.id }}</label></td>
             <td class="click"><a href="configDet/{{config.pk}}">Select</a></td>
 						<td class="click"><a href="configModDet/{{config.pk}}">Modify</a></td>
 						<td class="click"><a href="configSend/{{config.pk}}">Send</a></td>

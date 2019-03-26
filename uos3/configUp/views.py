@@ -24,21 +24,23 @@ def get_all_fields_from_form(instance):
     return fields
 def write_to_binary(values):
     logging.debug(values)
+    logging.debug(len(values))
     sum = 0
     internal_list = []
-    internal_binary_list = []
-    internal_template_list = [1,8,8,4,4,
+    internal_template_list = [1,8,8,4,4, #41 parameters
     8,8,8,8,8,
     8,8,16,16,16,
     4,8,16,4,8,
     32,1,32,2,1,
+    1,1,1,1,1,1,
     1,1,1,1,1,
-    1,1,1,1,1,
-    1,1,1,1,32]
+    1,1,1,1,32] #power_rail_4 is missing from configuration file spreadsheet
+
+    internal_bytes = bytearray()
     for i in internal_template_list:
         sum = sum + i
+
     logging.debug(sum)
-    logging.debug(len(internal_template_list))
     for i in values:
         if (isinstance(i, str)):
             if i == "on":
@@ -49,25 +51,25 @@ def write_to_binary(values):
             else:
                 new_f = float(i) #rounding error here
                 new_i = int(new_f)
-
                 internal_list.append(new_i)
         else:
             raise Exception("Unknown Type Error")
-    logging.debug(internal_list)
-    for i in range(0,len(internal_list)):
-        internal_binary_list.append(bin(internal_list[i])[2:].zfill(internal_template_list[i]))
-    for i in range(len(internal_binary_list)):
-        if len(internal_binary_list[i]) == internal_template_list[i]:
-            logging.debug('ok')
-        else:
-            logging.debug("Element {} is wrong. Binary value is {}. template value is {}".format(i, internal_binary_list[i], internal_template_list[i]))
-    logging.debug(internal_binary_list)
-    internal_binary_string = bin(int(''.join(internal_binary_list),2))[2:]
-    logging.debug(internal_binary_string)
-    logging.debug(len(internal_binary_string))
-    output_file = open('myfile.bin','w')
-    output_file.write(internal_binary_string)
-    output_file.close()
+    for counter in range(0, len(internal_list)):
+        if internal_list[counter] < 255:
+            internal_bytes.append(internal_list[counter])
+        elif internal_list[counter] > 255:
+            bit_counter = int(internal_template_list[counter]/8)
+            logging.debug("Larger than 255 value encountered. Value is {}, attempting to convert to bytes. Template bits length is {}".format(internal_list[counter], internal_template_list[counter]))
+            #result = internal_list[counter].to_bytes(bit_counter, 'little')
+            #internal_bytes[counter:counter] = result
+            #logging.debug("Output is {}".format(result))
+            #logging.debug("Testing reverse: {}".format(int.from_bytes(result, 'little')))
+            for i in range(1, bit_counter + 1):
+                bitshift = 32-(8*i)
+                result = internal_list[counter] << (bitshift) & 0xFF
+                internal_bytes.append(result)
+                logging.debug("Bitshifting value of {} by {}, result is {}".format(internal_list[counter], bitshift, result))
+    logging.debug(internal_bytes)
     return internal_list
 
 class IndexView(generic.TemplateView):
@@ -85,7 +87,9 @@ class ConfigUpView(generic.TemplateView):
         if self.template_name == 'configUp/configUp.html':
             form = configCreateForm(initial={
                 'power_rail_1': 1,
+                'power_rail_2': 1,
                 'power_rail_3': 1,
+                'power_rail_4': 1,
                 'power_rail_5': 1,
                 'power_rail_6': 1,
             })
@@ -100,10 +104,16 @@ class ConfigUpView(generic.TemplateView):
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect('configThanks')
+            else:
+                raise Exception(form.errors.as_text())
 
 class ListConfigsView(generic.ListView):
     model = config
     template_name = 'configUp/listConfigs.html'
+
+class ListConfigsSentView(generic.ListView):
+    model = config
+    template_name = 'configUp/listConfigsSent.html'
 
 class DetView(generic.TemplateView):
      model = config
@@ -146,7 +156,6 @@ class ModDetView(generic.TemplateView):
             config.objects.filter(id=newConfigObject.id).update(date_modified=datetime.datetime.now())
             config.objects.filter(id=newConfigObject.id).update(date_submitted=originalDate)
             config.objects.filter(id=newConfigObject.id).update(id=self.kwargs["pk"])
-
             return HttpResponseRedirect('/configThanks')
 
         else:
@@ -170,28 +179,24 @@ class SendDataView(generic.TemplateView):
         form = configModForm(request.POST)
         if form.is_valid():
             form.save()
-            newConfigObject = config.objects.latest('date_submitted')
-            configObject = config.objects.filter(id=self.kwargs["pk"])
-            originalDate = configObject[0].date_submitted
 
-            config.objects.filter(id=self.kwargs["pk"]).delete()
-            config.objects.filter(id=newConfigObject.id).update(date_submitted=originalDate)
-            config.objects.filter(id=newConfigObject.id).update(id=self.kwargs["pk"])
-            config.objects.filter(id=newConfigObject.id).update(confirmed_uplink=True)
-
-
+            logging.debug(newConfigObject.id)
             list_of_fields = get_all_fields_from_form(configModForm)
             newConfigBinary = []
-            logging.debug('test')
+
             for i in range(0, len(list_of_fields)):
                 if request.POST.get(list_of_fields[i]) == None:
                     logging.debug(list_of_fields[i])
                     continue
                 else:
-                    logging.debug("Request Parameter found")
                     newConfigBinary.append(request.POST.get(list_of_fields[i]))
 
             write_to_binary(newConfigBinary)
+
+            config.objects.filter(id=newConfigObject.id).update(date_modified=datetime.datetime.now())
+            config.objects.filter(id=newConfigObject.id).update(date_submitted=originalDate)
+            logging.debug("Config Object ID: {} has been updated".format(self.kwargs["pk"]))
+
 
             return HttpResponseRedirect('/configThanks')
         else:

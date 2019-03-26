@@ -6,7 +6,7 @@
 		<h1>Update new CubeSat Configuration File</h1>
 		<form method="post">
 			{% csrf_token %}
-			<table> {{ form }} </table>
+			<table> {{ form }} {{ form.errors }} {{ form.non_field_errors }}</table>
 			<input type="submit" value="Save Update"/>
 		</form>
 		<form action="/" method="get">
