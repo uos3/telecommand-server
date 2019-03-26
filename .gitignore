@@ -1,6 +1,8 @@
 __pycache__
 db.*
 uos3/uos3/secrets.py
+
+
 uos3/env/Scripts/ucrtbase.dll
 uos3/env/Scripts/tk86t.dll
 uos3/env/Lib/site-packages/pytz/zoneinfo/Indian/Comoro

@@ -55,26 +55,47 @@ class config(models.Model):
     date_uplink = models.DateTimeField(default=datetime.datetime(1970, 1, 1))
 
     tx_enable = models.BooleanField(choices=choices_bool,default=True)
+
     tx_interval = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
+
     tx_interval_downlink = models.IntegerField(choices=choices_tx_interval_downlink)
+
     tx_datarate = models.IntegerField(choices=choices_tx_datarate)
+
     tx_power = models.IntegerField(choices=choices_tx_power)
+
     tx_overtemp = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
+
     rx_overtemp = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
+
     batt_overtemp = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
+
     obc_overtemp = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
+
     pa_overtemp = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(255)])
+
     low_voltage_threshold = models.FloatField(validators = [MinValueValidator(0), MaxValueValidator(25.5)])
+
     low_voltage_recovery = models.FloatField(validators = [MinValueValidator(0), MaxValueValidator(25.5)])
+
     health_acquisition_interval = models.PositiveIntegerField(validators = [MinValueValidator(0), MaxValueValidator(65535)])
+
     configuration_acquisition_interval = models.PositiveIntegerField(validators = [MinValueValidator(0), MaxValueValidator(65535)])
+
     imu_acquisition_interval = models.PositiveIntegerField(validators = [MinValueValidator(0), MaxValueValidator(65535)])
+
     imu_sample_count = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(16)])
+
     imu_sample_interval = models.PositiveSmallIntegerField(validators = [MinValueValidator(10), MaxValueValidator(2550)])
+
     gps_acquisition_interval = models.PositiveIntegerField(validators = [MinValueValidator(0), MaxValueValidator(65535)])
+
     gps_sample_count = models.PositiveSmallIntegerField(validators = [MinValueValidator(0), MaxValueValidator(16)])
+
     gps_sample_interval = models.PositiveSmallIntegerField(validators = [MinValueValidator(10), MaxValueValidator(2550)])
+
     image_acquisition_time = models.BigIntegerField(validators = [MinValueValidator(0), MaxValueValidator(4294967295)])
+
     image_acquisition_profile = models.IntegerField(choices=choices_image_acquisition_profile)
     time = models.BigIntegerField(validators = [MinValueValidator(0), MaxValueValidator(4294967295)])
     operational_mode = models.IntegerField(choices=choices_operational_mode)

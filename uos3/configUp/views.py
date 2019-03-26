@@ -177,6 +177,8 @@ class SendDataView(generic.TemplateView):
 
     def post(self, request, *args, **kwargs):
         form = configModForm(request.POST)
+        logging.debug("Config Object ID: {} has been found".format(self.kwargs["pk"]))
+
         if form.is_valid():
             form.save()
 
