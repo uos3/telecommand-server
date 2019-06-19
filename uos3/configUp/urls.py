@@ -12,7 +12,7 @@ urlpatterns = [
     path('listConfigs', views.ListConfigsView.as_view(), name='listConfigs'),
     path('configDet/<int:pk>', views.DetView.as_view(
         template_name="configUp/detail.html"), name='detail'),
-    path('configDet/delThanks', views.ThanksView.as_view(
+    path('delThanks', views.ThanksView.as_view(
         template_name="configUp/delThanks.html"), name='delThanks'),
     path('configDet/configThanks', views.ThanksView.as_view(
         template_name="configUp/configThanks.html"), name='configThanks'),
@@ -20,4 +20,5 @@ urlpatterns = [
         template_name="configUp/modDetail.html"), name='modDetail'),
     path('configSend/<int:pk>', views.SendDataView.as_view(
         template_name="configUp/sendData.html"), name='sendData'),
+    path('listConfigsSent', views.ListConfigsSentView.as_view(), name='listConfigsSent'),
 ]
