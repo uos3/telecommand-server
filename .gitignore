@@ -1,6 +1,7 @@
 __pycache__
 db.*
 uos3/uos3/secrets.py
+server-init/SECRETS/*
 
 
 uos3/.vs/uos3/v15/.suo
