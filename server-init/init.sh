@@ -128,14 +128,53 @@ if [ $SSL_FLAG = 1 ]; then
   echo "SSL snippets remade\n"
 fi
 
-echo "Adding user credentials to nginx config..."
+echo "Adding user credentials to nginx config...\n"
+[ -f "/etc/nginx/sites-available/uos3test.com" ] && {
+  sudo rm -rfv /etc/nginx/sites-available/uos3test.com
+}
+sudo touch "/etc/nginx/sites-available/uos3test.com"
+if [ $SSL_FLAG = 1 ]; then
+  echo "Also enabling SSL in nginx test site config...\n"
+fi
 
-echo "TODO"
+srvr="server {"
+if [ $SSL_FLAG = 1 ]; then
+  srvr="$srvr\n    listen 443 ssl;"
+  srvr="$srvr\n    listen [::]:443 ssl;"
+  srvr="$srvr\n    include $SNIP_CRT_POINT;"
+else
+  srvr="$srvr\n    listen 80;"
+  srvr="$srvr\n    listen [::]:80;"
+fi
+srvr="$srvr\n"
+srvr="$srvr\n    root /var/www/html;"
+srvr="$srvr\n    index index.html index.htm index.nginx-debian.html;"
+srvr="$srvr\n"
+srvr="$srvr\n    server_name uos3test.com www.uos3test.com;"
+srvr="$srvr\n"
+srvr="$srvr\n    location / {"
+srvr="$srvr\n            try_files \$uri \$uri/ =404;"
+srvr="$srvr\n            auth_basic \"Welcome to UoS3 telecommand server\";"
+srvr="$srvr\n            auth_basic_user_file ${SSL_DIR}/.htpasswd;"
+srvr="$srvr\n    }"
+srvr="$srvr\n}\n"
+if [ $SSL_FLAG = 1 ]; then
+  srvr="$srvr\nserver {"
+  srvr="$srvr\n    listen 80;"
+  srvr="$srvr\n    listen [::]:80;"
+  srvr="$srvr\n"
+  srvr="$srvr\n    server_name uos3test.com www.uos3test.com;"
+  srvr="$srvr\n"
+  srvr="$srvr\n    return 302 https://\$server_name\$request_uri;"
+  srvr="$srvr\n}\n"
+fi
+cat $srvr | sudo tee "/etc/nginx/sites-available/uos3test.com"
 
-echo "Enabling SSL in nginx config..."
-
-echo "TODO"
+[ ! -f "/etc/nginx/sites-enabled/uos3test.com" ] && {
+  sudo ln -sf /etc/nginx/sites-available/uos3test.com /etc/nginx/sites-enabled/uos3test.com
+}
 
 echo "Completed! Have a nice day!"
 echo "To check if the new nginx configs work, run 'sudo nginx -t'."
-echo "If everything is fine, then restart nginx."
+echo "If everything is fine, then restart nginx (You can do 'sudo systemctl restart nginx')."
+echo "Test the server by going to uos3test.com. If you like it then move it over to production."
